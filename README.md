@@ -21,12 +21,12 @@ A full-stack note-taking application built with React (TypeScript) for the front
 - Express
 - TypeScript
 - Prisma (ORM)
-- PostgreSQL (via ElephantSQL)
+- PostgreSQL (via AWS RDS)
 
 ## Prerequisites
 
 - Node.js (v18.18 or higher)
-- PostgreSQL database (ElephantSQL account or local installation)
+- AWS RDS PostgreSQL instance
 - npm or yarn
 
 ## Installation
@@ -43,9 +43,9 @@ cd notes-app/notes-app-server
 npm install
 ```
 
-3. Create a `.env` file in the server directory and add your database URL:
+3. Create a `.env` file in the server directory and add your AWS RDS URL:
 ```
-DATABASE_URL="your-elephantsql-url"
+DATABASE_URL="postgresql://username:password@your-aws-rds-endpoint:5432/dbname"
 ```
 
 4. Initialize Prisma and push the database schema:
@@ -54,7 +54,11 @@ npx prisma init
 npx prisma db push
 ```
 
-5. Start the server:
+5. Configure AWS RDS Security Group:
+   - Add inbound rule for PostgreSQL (port 5432)
+   - Add your application's IP address
+
+6. Start the server:
 ```bash
 npm start
 ```
@@ -108,10 +112,3 @@ model Note {
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Tutorial source: [Code Coyotes]
-- Prisma documentation
-- React TypeScript documentation
-- ElephantSQL for database hosting
